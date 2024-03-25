@@ -2,31 +2,16 @@
 
 ----
 
-## Database
-The database setup includes the creation of a read replica.
-Two containers, db_write and db_read, are created.
-When developing, it's important to consider the read replica.
-
-
 ## Laravel
 
 ```bash
-$ cd ../environments/local/
-$ cp example/.env .env
-$ cp example/docker-compose.yml docker-compose.yml
-$ cp example/my-php.ini my-php.ini
+$ cp .env.example .env
 $ docker-compose up -d
 ```
-docker pullで制限に引っかかって失敗するときはdockerにログインしてやって下さい。
+If there are any access error when `docker pull` command is executed, try logging in docker.
 
 
-### プロジェクトが作られていない場合、最初の開発者のみ実行してください
-```bash
-# Only the first developer should run it. 
-$ docker-compose exec php-fpm composer create-project --prefer-dist laravel/laravel . "10.*"
-```
-
-### Laravelのインストール
+### Laravel installation
 
 ```bash
 # if installed
@@ -56,12 +41,12 @@ winpty docker-compose exec php-fpm php artisan key:generate
 
 ### Permission
 ```bash
-# if there's error, なら実行する
+# if there's error,
 $ chmod -R 777 ./storage/
 ```
 
-### .envをedit
-(.env.example を参考にしてください)
+### edit .env
+(take note of .env.example)
 ```dotenv
 DB_CONNECTION=mysql
 DB_HOST=mysql
@@ -86,44 +71,8 @@ $ docker-compose exec php-fpm bash
 /var/www# php artisan db:seed --class=DummyDatabaseSeeder
 ```
 
-## フロントエンド環境構築
-/nuxt-app/README.md を参照してください。
+## Frontend Development (Nuxt 3)
+
+check nuxt-app/README.md 
 
 ----
-
-### mailpit メールの受信
-[http://localhost:8025](http://localhost:8025)
-
-### minio
-- minioの設定 [http://localhost:9001](http://localhost:9001)
-- minioの説明 [./wiki/minio](https://github.com/commude/hoshi-iryou/wiki/minio)
-
-### admin 管理画面
-.envの以下の値をプレフィックスとして使う
-```dotenv
-ADMIN_PREFIX=cmd
-```
-[http://localhost/cmd/login](http://localhost/cmd/login)
-
-
-#### admin ログイン
-```
-ログインID : (admins テーブルのメールアドレス)
-パスワード : password
-```
-
-#### user ログイン
-```
-ログインID : (users テーブルの code)
-パスワード : password
-```
-
-----
-
-### フロントの構築(build)
-
-```bash
-cd src
-npm ci # or npm install (if you don't have package-lock.json)
-npm run build
-```
