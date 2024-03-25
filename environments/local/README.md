@@ -2,28 +2,6 @@
 
 ----
 
-## How to configure HTTPS
-As there are differences in behavior between HTTP and HTTPS, HTTPS should be used as much as possible. 
-In production, a load balancer is used, so it's important to develop with a configuration similar to that.
-
-### ngrok
-If configuration is troublesome, ngrok is recommended.
-However, the free version changes the URL each time, so it's best to use the paid version.
-It cannot be used offline. As connections are made to ngrok via HTTP, it's important not to handle personal or confidential information. Never use it in places such as Starbucks.
-
-### haproxy
-This can be used even in offline environments, but it's only prepared for Mac environments.
-
-```shell
-cd haproxy
-./mac.sh local.mcf-dos.jp
-```
-
-これで、フロント側が https://local.mcf-dos.jp でアクセスできるようになります。
-バックエンド側は、https://api.local.mdf-dos.jp でアクセスできるようになります。
-
-Comment out the haproxy section in the docker-compose.yml.
-
 ## Database
 The database setup includes the creation of a read replica.
 Two containers, db_write and db_read, are created.
