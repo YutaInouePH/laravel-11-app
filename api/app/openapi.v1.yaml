@@ -1,0 +1,157 @@
+openapi: 3.1.0
+info:
+  title: Chat Application API
+  version: 1.0.0
+  description: This API allows operation of a chat application including user management, friendships, chat rooms, and messaging.
+
+paths:
+  /users:
+    post:
+      summary: Register a new user.
+      description: Creates a new user account in the application.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - email
+                - password
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+            example:
+              username: "johndoe"
+              email: "john.doe@example.com"
+              password: "strongpassword123"
+      responses:
+        '201':
+          description: User created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  username:
+                    type: string
+                  email:
+                    type: string
+              example:
+                id: 1
+                username: "johndoe"
+                email: "john.doe@example.com"
+
+  /auth/login:
+    post:
+      summary: Authenticate a user and return a token.
+      description: Validates user credentials and provides a token for session management.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+            example:
+              email: "john.doe@example.com"
+              password: "strongpassword123"
+      responses:
+        '200':
+          description: Authentication successful.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+              example:
+                token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+
+  /friends:
+    post:
+      summary: Send a friend request to another user.
+      description: Initiates a friendship connection between the authenticated user and another user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user_id
+              properties:
+                user_id:
+                  type: integer
+            example:
+              user_id: 2
+      responses:
+        '201':
+          description: Friend request sent successfully.
+
+  /chatrooms:
+    post:
+      summary: Create a new chat room.
+      description: Creates a new chat room, either private or group, based on the provided details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - is_group
+                - name
+              properties:
+                is_group:
+                  type: boolean
+                name:
+                  type: string
+            example:
+              is_group: true
+              name: "Laravel Enthusiasts"
+      responses:
+        '201':
+          description: Chat room created successfully.
+
+  /chatrooms/{chatRoomId}/messages:
+    post:
+      summary: Send a new message in a chat room.
+      description: Posts a new message to the specified chat room.
+      parameters:
+        - name: chatRoomId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - message
+              properties:
+                message:
+                  type: string
+            example:
+              message: "Hello everyone!"
+      responses:
+        '201':
+          description: Message sent successfully.

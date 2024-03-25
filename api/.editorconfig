@@ -1,0 +1,4 @@
+root = true
+
+[*.yaml]
+trim_trailing_whitespace = false
