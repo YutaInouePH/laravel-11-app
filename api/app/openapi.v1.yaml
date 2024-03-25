@@ -2,10 +2,108 @@ openapi: 3.1.0
 info:
   title: Chat Application API
   version: 1.0.0
-  description: This API allows operation of a chat application including user management, friendships, chat rooms, and messaging.
+  description: |-
+    ChatApp API
 
+    ### Regarding datetime
+
+    All datetime will be ISO8601 extended format.
+
+    ex: 2018-12-15T12:53:23+09:00
+
+    The name of the item using the date will be xxxxxxx_at.
+
+    ### Regarding dates
+
+    All date will be YYYY-MM-DD format.
+
+    The name of the item using the date will be xxxxxxx_on.
+
+    ## Regarding Error response
+
+    All errors must be returned in JSON.
+
+    ### Regarding Error response (Validation errors)
+
+    Return error as `422 Unprocessable Entity`
+
+
+    ### Regarding path operationIds
+
+    As much as possible, follow the laravel routing name. 
+
+    Index lists → {resource}.index
+
+    Detail → {resource}.detail
+
+    Create → {resource}.store
+
+    Update → {resource}.update
+
+    Destroy → {resource}.destroy
+  contact:
+    name: Inoue Yuta
+servers:
+  - url: 'http://localhost'
+tags:
+  - name: Auth
+    description: Operations related to user authentication.
+  - name: Friends
+    description: Operations related to user friendships.
+  - name: Rooms
+    description: Operations related to chat rooms.
+  - name: Messages
+    description: Operations related to chat messages.
 paths:
-  /users:
+  /login:
+    post:
+      summary: Authenticate a user
+      description: 'Validates user credentials. Token will not be provided, instead laravel sanctum will handle the session.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+            example:
+              email: john.doe@example.com
+              password: strongpassword123
+            examples:
+              Example 1:
+                value:
+                  email: test_user@example.com
+                  password: strongpassword123
+      responses:
+        '204':
+          description: No Content
+      operationId: login
+      tags:
+        - Auth
+  /logout:
+    post:
+      summary: Logout a user
+      description: |-
+        Logout a valid user. 
+        Removes the session in Laravel server.
+      requestBody:
+        required: true
+        content: {}
+      responses:
+        '204':
+          description: No Content
+      operationId: logout
+      tags:
+        - Auth
+    parameters: []
+  /register:
     post:
       summary: Register a new user.
       description: Creates a new user account in the application.
@@ -16,98 +114,51 @@ paths:
             schema:
               type: object
               required:
-                - username
+                - name
                 - email
                 - password
               properties:
-                username:
+                name:
                   type: string
                 email:
                   type: string
                 password:
                   type: string
             example:
-              username: "johndoe"
-              email: "john.doe@example.com"
-              password: "strongpassword123"
+              name: johndoe
+              email: john.doe@example.com
+              password: strongpassword123
       responses:
-        '201':
+        '200':
           description: User created successfully.
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  username:
-                    type: string
-                  email:
-                    type: string
-              example:
-                id: 1
-                username: "johndoe"
-                email: "john.doe@example.com"
-
-  /auth/login:
-    post:
-      summary: Authenticate a user and return a token.
-      description: Validates user credentials and provides a token for session management.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - email
-                - password
-              properties:
-                email:
-                  type: string
-                password:
-                  type: string
-            example:
-              email: "john.doe@example.com"
-              password: "strongpassword123"
+                $ref: ./models/user.v1.yaml
+              examples:
+                Example 1:
+                  value:
+                    id: 1
+                    name: Inoue Yuta
+                    email: test_sample@example.com
+                    created_at: '2018-12-15T12:53:23+09:00'
+      operationId: register
+      tags:
+        - Auth
+    parameters: []
+  /chatrooms:
+    get:
+      summary: Get chatrooms
+      operationId: chatrooms.index
       responses:
         '200':
-          description: Authentication successful.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  token:
-                    type: string
-              example:
-                token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-
-  /friends:
+          description: OK
+      tags:
+        - Rooms
+      description: Retrieve user's chatroom list.
     post:
-      summary: Send a friend request to another user.
-      description: Initiates a friendship connection between the authenticated user and another user.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - user_id
-              properties:
-                user_id:
-                  type: integer
-            example:
-              user_id: 2
-      responses:
-        '201':
-          description: Friend request sent successfully.
-
-  /chatrooms:
-    post:
-      summary: Create a new chat room.
-      description: Creates a new chat room, either private or group, based on the provided details.
+      summary: Create a new chatroom.
+      description: 'Creates a new chat room, either private or group, based on the provided details.'
       requestBody:
         required: true
         content:
@@ -124,12 +175,29 @@ paths:
                   type: string
             example:
               is_group: true
-              name: "Laravel Enthusiasts"
+              name: Laravel Enthusiasts
       responses:
         '201':
           description: Chat room created successfully.
-
-  /chatrooms/{chatRoomId}/messages:
+      tags:
+        - Rooms
+      operationId: chatrooms.store
+  '/chatrooms/{chatRoomId}/messages':
+    get:
+      summary: Get chatroom messages
+      operationId: chatrooms.detail.messages.index
+      parameters:
+        - name: chatRoomId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+      description: "Retrieve teh specified chat id's messages"
+      tags:
+        - Messages
     post:
       summary: Send a new message in a chat room.
       description: Posts a new message to the specified chat room.
@@ -151,7 +219,10 @@ paths:
                 message:
                   type: string
             example:
-              message: "Hello everyone!"
+              message: Hello everyone!
       responses:
         '201':
           description: Message sent successfully.
+      tags:
+        - Messages
+      operationId: chatrooms.detail.messages.store

@@ -1,0 +1,51 @@
+title: Pagination
+type: object
+properties:
+  meta:
+    properties:
+      total:
+        type: integer
+        nullable: true
+        example: 50
+      per_page:
+        type: integer
+        nullable: true
+        example: 10
+      current_page:
+        type: integer
+        nullable: true
+        example: 2
+      last_page:
+        type: integer
+        nullable: true
+        example: 5
+      from:
+        type: integer
+        nullable: true
+        example: 11
+      to:
+        type: integer
+        nullable: true
+        example: 20
+      path:
+        type: string
+        nullable: true
+        example: http://localhost/api/v1/diaries
+  links:
+    properties:
+      first:
+        type: string
+        nullable: true
+        example: http://localhost/api/v1/diaries?page=1
+      last:
+        type: string
+        nullable: true
+        example: http://localhost/api/v1/diaries?page=5
+      prev:
+        type: string
+        nullable: true
+        example: http://localhost/api/v1/diaries?page=1
+      next:
+        type: string
+        nullable: true
+        example: http://localhost/api/v1/diaries?page=3

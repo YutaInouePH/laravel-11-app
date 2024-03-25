@@ -1,0 +1,19 @@
+title: User 
+type: object
+properties:
+  id:
+    type: integer
+    example: 1
+  name:
+    type: string
+    example: Inoue Yuta
+    description: user's name
+  email:
+    type: string
+    example: test_sample@example.com
+    description: メールアドレス
+required:
+  - id
+  - name
+  - email
+  - created_at
