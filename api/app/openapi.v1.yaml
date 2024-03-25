@@ -44,7 +44,7 @@ info:
   contact:
     name: Inoue Yuta
 servers:
-  - url: 'http://localhost'
+  - url: 'http://localhost/api'
 tags:
   - name: Auth
     description: Operations related to user authentication.
