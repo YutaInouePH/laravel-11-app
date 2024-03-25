@@ -1,0 +1,9 @@
+.DS_Store
+.env
+docker-compose.yml
+wp-config.php
+libxl.ini
+crontab
+.htaccess
+.htpasswd
+local/s3sync

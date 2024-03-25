@@ -16,6 +16,8 @@
       <excludeFolder url="file://$MODULE_DIR$/src/storage" />
       <excludeFolder url="file://$MODULE_DIR$/src/vendor" />
       <excludeFolder url="file://$MODULE_DIR$/vendor" />
+      <excludeFolder url="file://$MODULE_DIR$/src/.composer" />
+      <excludeFolder url="file://$MODULE_DIR$/src/.config" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
