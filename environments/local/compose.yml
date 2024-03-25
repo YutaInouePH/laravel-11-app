@@ -19,6 +19,7 @@ services:
       - "backend"
 
   mysql:
+    container_name: "${COMPOSE_PROJECT_NAME}.mysql"
     image: 'mysql/mysql-server:8.0'
     ports:
       - '${FORWARD_DB_PORT:-3306}:3306'
@@ -86,6 +87,7 @@ services:
       - "backend"
 
   redis:
+    container_name: "${COMPOSE_PROJECT_NAME}.redis"
     image: 'redis:alpine'
     ports:
       - '${FORWARD_REDIS_PORT:-6379}:6379'

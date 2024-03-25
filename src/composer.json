@@ -17,6 +17,7 @@
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
+        "hotmeteor/spectator": "^2.0",
         "larastan/larastan": "^2.0",
         "laravel/pint": "^1.13",
         "laravel/telescope": "^5.0",

@@ -273,6 +273,13 @@
       <path value="$PROJECT_DIR$/src/vendor/livewire/livewire" />
       <path value="$PROJECT_DIR$/src/vendor/doctrine/sql-formatter" />
       <path value="$PROJECT_DIR$/src/vendor/laravel/pulse" />
+      <path value="$PROJECT_DIR$/src/vendor/hotmeteor/spectator" />
+      <path value="$PROJECT_DIR$/src/vendor/symfony/yaml" />
+      <path value="$PROJECT_DIR$/src/vendor/justinrainbow/json-schema" />
+      <path value="$PROJECT_DIR$/src/vendor/opis/string" />
+      <path value="$PROJECT_DIR$/src/vendor/opis/uri" />
+      <path value="$PROJECT_DIR$/src/vendor/opis/json-schema" />
+      <path value="$PROJECT_DIR$/src/vendor/devizzent/cebe-php-openapi" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
