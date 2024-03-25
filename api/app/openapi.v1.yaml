@@ -48,6 +48,8 @@ servers:
 tags:
   - name: Auth
     description: Operations related to user authentication.
+  - name: Me
+    description: Operations related to the current user.
   - name: Friends
     description: Operations related to user friendships.
   - name: Rooms
@@ -146,6 +148,22 @@ paths:
       tags:
         - Auth
     parameters: []
+  /me:
+    get:
+      summary: Get current user
+      description: Retrieve the current user's information.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./models/user.v1.yaml
+      tags:
+        - Me
+      operationId: me.index
+      requestBody:
+        content: {}
   /chatrooms:
     get:
       summary: Get chatrooms
@@ -195,7 +213,7 @@ paths:
       responses:
         '200':
           description: OK
-      description: "Retrieve teh specified chat id's messages"
+      description: Retrieve teh specified chat id's messages
       tags:
         - Messages
     post:
