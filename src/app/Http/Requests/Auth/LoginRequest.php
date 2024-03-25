@@ -38,7 +38,7 @@ class LoginRequest extends FormRequest
      */
     public function authenticate(): void
     {
-        $credentials = $this->only('account', 'password');
+        $credentials = $this->only('email', 'password');
         $user = User::where('email', $this->email)->first();
 
         if (! Auth::attempt(array_merge($credentials))) {
