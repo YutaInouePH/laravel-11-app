@@ -32,8 +32,6 @@ class StoreRequest extends FormRequest
 
     /**
      * Get the validated data from the request.
-     *
-     * @return array
      */
     public function data(): array
     {

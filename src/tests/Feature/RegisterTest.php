@@ -12,9 +12,6 @@ class RegisterTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @var array
-     */
     private array $register_data;
 
     protected function setUp(): void
@@ -66,7 +63,7 @@ class RegisterTest extends TestCase
         $register_data = $this->register_data;
 
         $this->postJson($route, $register_data)
-            ->assertJson(fn(AssertableJson $json) => $json->has('errors.email.0'))
+            ->assertJson(fn (AssertableJson $json) => $json->has('errors.email.0'))
             ->assertStatus(422);
         $this->assertDatabaseMissing('users', [
             'name' => $register_data['name'],
@@ -87,7 +84,7 @@ class RegisterTest extends TestCase
         $register_data['email'] = 'invalid-email.com'; // [email: invalid format]
 
         $this->postJson($route, $register_data)
-            ->assertJson(fn(AssertableJson $json) => $json->has('errors.email.0'))
+            ->assertJson(fn (AssertableJson $json) => $json->has('errors.email.0'))
             ->assertStatus(422);
         $this->assertDatabaseMissing('users', [
             'email' => $register_data['email'],
@@ -104,10 +101,10 @@ class RegisterTest extends TestCase
     {
         $route = route('api.register');
         $register_data = $this->register_data;
-        $register_data['email'] = str_repeat('a', 256) . '@test.com'; // [email: 256 characters]
+        $register_data['email'] = str_repeat('a', 256).'@test.com'; // [email: 256 characters]
 
         $this->postJson($route, $register_data)
-            ->assertJson(fn(AssertableJson $json) => $json->has('errors.email.0'))
+            ->assertJson(fn (AssertableJson $json) => $json->has('errors.email.0'))
             ->assertStatus(422);
         $this->assertDatabaseMissing('users', [
             'email' => $register_data['email'],
@@ -127,7 +124,7 @@ class RegisterTest extends TestCase
         $register_data['password'] = str_repeat('a', 256); // [password: 256 characters]
 
         $this->postJson($route, $register_data)
-            ->assertJson(fn(AssertableJson $json) => $json->has('errors.password.0'))
+            ->assertJson(fn (AssertableJson $json) => $json->has('errors.password.0'))
             ->assertStatus(422);
         $this->assertDatabaseMissing('users', [
             'email' => $register_data['email'],
@@ -147,7 +144,7 @@ class RegisterTest extends TestCase
         $register_data['password'] = 'pass'; // [password: 4 characters]
 
         $this->postJson($route, $register_data)
-            ->assertJson(fn(AssertableJson $json) => $json->has('errors.password.0'))
+            ->assertJson(fn (AssertableJson $json) => $json->has('errors.password.0'))
             ->assertStatus(422);
         $this->assertDatabaseMissing('users', [
             'email' => $register_data['email'],
@@ -167,7 +164,7 @@ class RegisterTest extends TestCase
         $register_data['password_confirmation'] = 'password123'; // [password_confirmation: different value]
 
         $this->postJson($route, $register_data)
-            ->assertJson(fn(AssertableJson $json) => $json->has('errors.password_confirmation.0'))
+            ->assertJson(fn (AssertableJson $json) => $json->has('errors.password_confirmation.0'))
             ->assertStatus(422);
         $this->assertDatabaseMissing('users', [
             'email' => $register_data['email'],
@@ -187,11 +184,10 @@ class RegisterTest extends TestCase
         $register_data['name'] = str_repeat('a', 256); // [name: 256 characters]
 
         $this->postJson($route, $register_data)
-            ->assertJson(fn(AssertableJson $json) => $json->has('errors.name.0'))
+            ->assertJson(fn (AssertableJson $json) => $json->has('errors.name.0'))
             ->assertStatus(422);
         $this->assertDatabaseMissing('users', [
             'email' => $register_data['email'],
         ]);
     }
-
 }

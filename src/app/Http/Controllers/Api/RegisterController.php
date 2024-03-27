@@ -14,11 +14,8 @@ class RegisterController extends Controller
 {
     /**
      * Handle the incoming request.
-     *
-     * @param StoreRequest $request
-     * @return UserResource | JsonResponse
      */
-    public function store(StoreRequest $request): UserResource | JsonResponse
+    public function store(StoreRequest $request): UserResource|JsonResponse
     {
         $user = null;
         DB::beginTransaction();
@@ -27,9 +24,10 @@ class RegisterController extends Controller
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            Log::error(__CLASS__ . '@' . __METHOD__, [
+            Log::error(__CLASS__.'@'.__METHOD__, [
                 'error' => $e->getMessage(),
             ]);
+
             return response()->json([
                 'message' => 'Failed to register user.',
             ], 500);
