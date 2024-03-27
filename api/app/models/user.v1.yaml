@@ -12,6 +12,10 @@ properties:
     type: string
     example: test_sample@example.com
     description: メールアドレス
+  created_at:
+    type: string
+    example: 2024-03-25T20:16:22+09:00
+    description: ユーザー登録日時
 required:
   - id
   - name

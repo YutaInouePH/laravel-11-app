@@ -44,7 +44,7 @@ info:
   contact:
     name: Inoue Yuta
 servers:
-  - url: 'http://localhost/api'
+  - url: 'http://localhost'
 tags:
   - name: Auth
     description: Operations related to user authentication.
@@ -89,6 +89,7 @@ paths:
       operationId: login
       tags:
         - Auth
+      parameters: []
   /logout:
     post:
       summary: Logout a user
@@ -105,7 +106,7 @@ paths:
       tags:
         - Auth
     parameters: []
-  /register:
+  /api/register:
     post:
       summary: Register a new user.
       description: Creates a new user account in the application.
@@ -148,7 +149,7 @@ paths:
       tags:
         - Auth
     parameters: []
-  /me:
+  /api/me:
     get:
       summary: Get current user
       description: Retrieve the current user's information.
@@ -162,9 +163,8 @@ paths:
       tags:
         - Me
       operationId: me.index
-      requestBody:
-        content: {}
-  /chatrooms:
+      parameters: []
+  /api/chatrooms:
     get:
       summary: Get chatrooms
       operationId: chatrooms.index
@@ -200,7 +200,7 @@ paths:
       tags:
         - Rooms
       operationId: chatrooms.store
-  '/chatrooms/{chatRoomId}/messages':
+  '/api/chatrooms/{chatRoomId}/messages':
     get:
       summary: Get chatroom messages
       operationId: chatrooms.detail.messages.index
