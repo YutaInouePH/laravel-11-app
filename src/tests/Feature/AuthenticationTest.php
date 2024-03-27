@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class AuthenticationTest extends TestCase
@@ -29,7 +28,7 @@ class AuthenticationTest extends TestCase
         $route = route('login', [], false);
         $response = $this->postJson($route, [
             'email' => 'test@example.com',
-            'password' => 'password'
+            'password' => 'password',
         ]);
 
         $this->assertAuthenticated('sanctum');
