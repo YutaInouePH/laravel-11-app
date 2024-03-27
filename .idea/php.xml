@@ -280,6 +280,9 @@
       <path value="$PROJECT_DIR$/src/vendor/opis/uri" />
       <path value="$PROJECT_DIR$/src/vendor/opis/json-schema" />
       <path value="$PROJECT_DIR$/src/vendor/devizzent/cebe-php-openapi" />
+      <path value="$PROJECT_DIR$/src/vendor/brianium/paratest" />
+      <path value="$PROJECT_DIR$/src/vendor/jean85/pretty-package-versions" />
+      <path value="$PROJECT_DIR$/src/vendor/fidry/cpu-core-counter" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
