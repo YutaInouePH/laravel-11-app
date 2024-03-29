@@ -32,7 +32,7 @@ class RegisterTest extends TestCase
      * Check for response status 201 and json response structure.
      * Assert database has a new user record.
      */
-    public function test_register_success(): void
+    public function test_spec_register_success(): void
     {
         $route = route('api.register');
         $register_data = $this->register_data;

@@ -132,7 +132,7 @@ paths:
               email: john.doe@example.com
               password: strongpassword123
       responses:
-        '200':
+        '201':
           description: User created successfully.
           content:
             application/json:
@@ -197,8 +197,7 @@ paths:
                       - id: 1
                         name: Inoue Yuta
                         email: string
-                        is_friend: true
-                        friend_on: '2019-08-24'
+                        status: 'accept'
                     meta:
                       total: 50
                       per_page: 10

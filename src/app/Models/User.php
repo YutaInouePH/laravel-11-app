@@ -16,7 +16,7 @@ use Overtrue\LaravelFollow\Traits\Follower;
  */
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, Follower, Followable;
+    use Followable, Follower, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.

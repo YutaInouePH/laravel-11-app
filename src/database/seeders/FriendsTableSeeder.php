@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class FriendsTableSeeder extends Seeder
@@ -13,9 +12,10 @@ class FriendsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $user1 = User::find(1);
-        $user2 = User::find(2);
-        $user3 = User::find(3);
+        $users = User::all();
+        $user1 = $users->first();
+        $user2 = $users->get(2);
+        $user3 = $users->get(3);
 
         // User 1 sends friend request to user 2, and accepts
         $user1->follow($user2);

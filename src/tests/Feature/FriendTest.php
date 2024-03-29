@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spectator\Spectator;
 use Tests\TestCase;
 
-class MeTest extends TestCase
+class FriendTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -18,16 +18,20 @@ class MeTest extends TestCase
     {
         parent::setUp();
 
+        $this->seed();
         Spectator::using('openapi.v1.yaml');
     }
 
     /**
-     * Check for response status 200 and json response structure.
+     * Retrieve logged-in user's friends.
+     * Validate the response body structure
      */
-    public function test_spec_me_index(): void
+    public function test_spec_friends_index(): void
     {
-        $route = route('api.me.index', [], false);
-        $this->actingAs(User::factory()->create())
+        $user = User::first();
+        $route = route('api.friends.index', [], false);
+
+        $this->actingAs($user)
             ->getJson($route)
             ->assertValidRequest()
             ->assertValidResponse(200);
