@@ -18,22 +18,16 @@ properties:
     x-stoplight:
       id: fls7h0ea8rjoq
     description: user's email
-  is_friend:
-    type: boolean
-    x-stoplight:
-      id: ob5hw2dfpxmnv
-    description: 'If status is `accepted`, field is `true`, else `false`'
   status:
     type: string
     x-stoplight:
       id: f7i22og2au200
     description: |-
       friends's status, available statuses are:
-      `pending`, `accepted`, `block`
+      `pending`, `accepted`
     example: accepted
 required:
   - id
   - name
   - email
-  - is_friend
   - status
