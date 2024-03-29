@@ -38,8 +38,11 @@ RUN apt-get update && apt-get install -y \
     gd \
     exif \
     zip \
-  && pecl install redis \
-  && docker-php-ext-enable redis.so \
+  && pecl install xdebug redis \
+  && docker-php-ext-enable xdebug redis.so \
+  && echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+  && echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+  && echo "xdebug.mode=coverage" >> /usr/local/etc/php/conf.d/xdebug.ini \
   && docker-php-source delete
 
 COPY --from=composer:2.5.8 /usr/bin/composer /usr/local/bin/composer
