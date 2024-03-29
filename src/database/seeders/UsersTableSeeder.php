@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
@@ -34,7 +33,7 @@ class UsersTableSeeder extends Seeder
         foreach ($this->names as $name) {
             User::factory()->create([
                 'name' => $name,
-                'email' => strtolower($name) . '@example.com',
+                'email' => strtolower($name).'@example.com',
             ]);
         }
     }
