@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -49,5 +50,25 @@ class AuthenticationTest extends TestCase
 
         $this->assertGuest('sanctum');
         $response->assertStatus(422);
+    }
+
+    public function test_logout_success(): void
+    {
+        $user = User::factory()->create();
+        $route = route('logout', [], false);
+        $response = $this->actingAs($user)
+            ->postJson($route);
+
+        $this->assertGuest('sanctum');
+        $response->assertStatus(204);
+    }
+
+    public function test_logout_failed(): void
+    {
+        $route = route('logout', [], false);
+        $response = $this->postJson($route);
+
+        $this->assertGuest('sanctum');
+        $response->assertStatus(200);
     }
 }
