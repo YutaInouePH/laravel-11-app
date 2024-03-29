@@ -52,11 +52,6 @@ class User extends Authenticatable
         ];
     }
 
-    public function friends(): HasMany
-    {
-        return $this->hasMany(Friend::class);
-    }
-
     public function rooms(): HasMany
     {
         return $this->hasMany(Room::class);
